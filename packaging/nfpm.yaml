@@ -1,0 +1,34 @@
+# nfpm config used by the GitHub Actions pipeline to build .deb and .rpm
+# packages. ARCH and PKG_VERSION are supplied by the pipeline, which also stages
+# the binary for the target architecture at packaging/puppeteer-mcp (nfpm does
+# not expand environment variables inside contents paths).
+name: puppeteer-mcp
+arch: ${ARCH}
+platform: linux
+version: ${PKG_VERSION}
+section: devel
+priority: optional
+maintainer: puppeteer-mcp maintainers
+description: |
+  Model Context Protocol server that drives a Chrome browser, for testing web
+  apps, debugging pages and building Chrome extensions. It serves MCP revision
+  2026-07-28 over stdio or Streamable HTTP, and either launches its own browser
+  or attaches to a Chrome already running with --remote-debugging-port.
+homepage: https://github.com/chriswirz/puppeteer-mcp-go
+license: MIT
+# The browser itself is not a package dependency: this server drives whatever
+# Chrome is installed, or the Chromium the Playwright driver downloads on
+# demand, and declaring one would be wrong in both cases.
+contents:
+  - src: packaging/puppeteer-mcp
+    dst: /usr/bin/puppeteer-mcp
+    file_info:
+      mode: 0755
+  - src: README.md
+    dst: /usr/share/doc/puppeteer-mcp/README.md
+    file_info:
+      mode: 0644
+  - src: config.example.json
+    dst: /usr/share/doc/puppeteer-mcp/config.example.json
+    file_info:
+      mode: 0644
