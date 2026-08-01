@@ -1,0 +1,20 @@
+# The browser profile: cookies, sessions, cache. Never commit it.
+profile/
+chrome-cdp/
+downloads/
+screenshots/
+
+# Local configuration, which may hold an auth token or a tunnel key.
+config.json
+.puppeteer-mcp-tunnel-session
+
+# Build and packaging output. packaging/puppeteer-mcp is the binary the
+# release pipeline stages for nfpm.
+dist/
+out/
+packaging/puppeteer-mcp
+
+# Build output.
+puppeteer-mcp
+puppeteer-mcp.exe
+*.exe
